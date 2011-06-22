@@ -12,7 +12,8 @@ module Board(initBoard,
              sow,
              move,
              canCapture,
-             capture) where
+             capture,
+             getLastHole) where
 
 import Types
 import Data.List(splitAt)
@@ -93,4 +94,17 @@ capture (player, pos) b = holes2board (getOtherPlayer player) holesCapturedSeeds
         holesRemovedSeeds = updateHole pos 0 (board2holes (getOtherPlayer player) b)
         opositeSeeds = (getOtherPlayerHoles player b) !! pos
 
+getLastHole :: Hole -> Board -> Hole
+getLastHole (player, pos)  b = (getPlayer, newPosition `mod` (boardSize `div` 2))
+  where seeds = (getPlayerHoles player b) !! pos
+        getPlayer = getPlayerByPosition (player, newPosition) b
+        newPosition = ((pos + seeds) `mod` (boardSize - 1))
+        boardSize = length (fst b ++ snd b)
+
+
+getPlayerByPosition :: Hole -> Board -> Player
+getPlayerByPosition (player, pos) (s1, s2) = if pos >= halfBoardSize
+                                             then getOtherPlayer player
+                                             else player
+  where halfBoardSize = (length (s1 ++ s2)) `div` 2
 

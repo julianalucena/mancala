@@ -75,6 +75,14 @@ captureTest = TestList [
     ([0, 5, 0, 1, 3], [7, 0, 1, 1, 5]) (capture (B, 0) sampleBoard)
   ]
 
+getLastHoleTest = TestList [
+  TestCase $ assertEqual "Return last hole from hole 6"
+    (A, 6) (getLastHole (A, 4) ([4, 0, 5, 5, 15, 5, 1], [4, 4, 4, 4, 4, 4, 0])),
+  TestCase $ assertEqual "Return last hole from hoke 4"
+    (B, 0) (getLastHole (A, 2) ([4, 0, 5, 5, 15, 5, 1], [4, 4, 4, 4, 4, 4, 0]))
+  ]
+
 main = runTestTT $ TestList [initBoardTest, removeMancalaHoleTest,
   getPlayerHolesTest, hasMoveTest, updateHoleTest, sowTest, moveTest,
-  canCaptureTest, captureTest]
+  canCaptureTest, captureTest, getLastHoleTest]
+
