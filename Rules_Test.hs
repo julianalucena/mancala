@@ -63,21 +63,21 @@ getWinnerTest = TestList [
 isPossibleMoveTest = TestList [
   TestCase $ assertEqual "Player A try an irregular move"
     False (isPossibleMove (A, 2) ([2, 2, 7], [0, 2, 8])),
-  TestCase $ assertEqual "Player A try an irregular move"
+  TestCase $ assertEqual "Player A try an irregular move (1)"
     False (isPossibleMove (A, 0) ([0, 2, 7], [0, 2, 8])),
-  TestCase $ assertEqual "Player A try an irregular move"
+  TestCase $ assertEqual "Player A try an irregular move (2)"
     False (isPossibleMove (A, 3) ([0, 2, 7], [0, 2, 8])),
   TestCase $ assertEqual "Player A try a regular move"
     True (isPossibleMove (A, 1) ([0, 2, 7], [0, 2, 8])),
   TestCase $ assertEqual "Player B try an irregular move"
-    False (isPossibleMove (B, 1) ([0, 2, 7], [0, 2, 8])),
-  TestCase $ assertEqual "Player B try an irregular move"
+    False (isPossibleMove (B, 0) ([0, 2, 7], [0, 2, 8])),
+  TestCase $ assertEqual "Player B try an irregular move (1)"
     False (isPossibleMove (B, 2) ([0, 2, 7], [0, 2, 8])),
-  TestCase $ assertEqual "Player B try an irregular move"
+  TestCase $ assertEqual "Player B try an irregular move (2)"
     False (isPossibleMove (B, 4) ([0, 2, 7], [0, 2, 8])),
   TestCase $ assertEqual "Player B try a regular move"
     True (isPossibleMove (B, 1) ([0, 2, 7], [0, 2, 8]))
   ]
 
 main = runTestTT $ TestList [isMancalaTest, hasMoveTest, canCaptureTest,
-  makeMoveTest, canMoveAgainTest, getWinnerTest]
+  makeMoveTest, canMoveAgainTest, getWinnerTest, isPossibleMoveTest]

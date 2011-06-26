@@ -56,6 +56,7 @@ getWinner board
   where playerASeeds = foldr (+) 0 (fst board)
         playerBSeeds = foldr (+) 0 (snd board)
 
+-- Verify if is a possible movement
 isPossibleMove :: Hole -> Board -> Bool
 isPossibleMove (player, pos) b
   | pos > length playerHoles - 2 = False
