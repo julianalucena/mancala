@@ -25,13 +25,6 @@ removeMancalaHoleTest = TestList [
     [3, 4, 0, 1] (removeMancalaHole [3, 4, 0, 1, 7])
   ]
 
-hasMoveTest = TestList [
-  TestCase $ assertEqual "Player A has moves to do"
-    True (hasMove A ([0, 0, 2, 0, 8], [0, 0, 0, 0, 11])),
-  TestCase $ assertEqual "Player B does NOT have moves to do"
-     False (hasMove B ([0, 0, 2, 0, 8], [0, 0, 0, 0, 11]))
-  ]
-
 updateHoleTest = TestList [
   TestCase $ assertEqual "Updates player A hole 1 to 0"
     ([3, 0, 0, 1, 3] ++ snd sampleBoard) (updateHole 1 0 (board2holes A sampleBoard)),
@@ -57,17 +50,6 @@ moveTest = TestList [
     ([4, 6, 1, 1, 3], [0, 1, 2, 2, 3]) (move (B, 0) sampleBoard)
   ]
 
-canCaptureTest = TestList [
-  TestCase $ assertEqual "Player A can capture from hole 3"
-    True (canCapture (A, 3) sampleBoard),
-  TestCase $ assertEqual "Player A can NOT capture from hole 2"
-    False (canCapture (A, 2) sampleBoard),
-  TestCase $ assertEqual "Player B can capture from hole 3"
-    True (canCapture (B, 3) sampleBoard),
-  TestCase $ assertEqual "Player B can NOT capture from hole 0"
-    False (canCapture (B, 0) sampleBoard)
-  ]
-
 captureTest = TestList [
   TestCase $ assertEqual "Player A captures from hole 3"
     ([3, 5, 0, 1, 4], [7, 0, 1, 0, 2]) (capture (A, 3) sampleBoard),
@@ -83,6 +65,6 @@ getLastHoleTest = TestList [
   ]
 
 main = runTestTT $ TestList [initBoardTest, removeMancalaHoleTest,
-  getPlayerHolesTest, hasMoveTest, updateHoleTest, sowTest, moveTest,
-  canCaptureTest, captureTest, getLastHoleTest]
+  getPlayerHolesTest, updateHoleTest, sowTest, captureTest,
+  getLastHoleTest]
 

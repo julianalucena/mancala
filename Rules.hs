@@ -1,19 +1,46 @@
 -- Rules.hs
 -- Mancala's rules
 
-module Rules where
+module Rules(isMancala,
+             hasMove,
+             canCapture,
+             makeMove,
+             canMoveAgain) where
 
 import Types
 import Board
 import Data.List(splitAt)
 
+-- Indicates if the hole is a mancala
+isMancala :: Hole -> Board -> Bool
+isMancala (player, pos) b = (length holes - 1) == pos
+  where holes = getPlayerHoles player b
+
+-- Verify if specified player has moves to do
+hasMove :: Player -> Board -> Bool
+hasMove p b = any (/=0) holes
+  where holes = removeMancalaHole (getPlayerHoles p b)
+
+-- Verifies if a capture can be done
+canCapture :: Hole -> Board -> Bool
+canCapture (player, pos) b
+  | seeds == 1 && opositeSeeds /= 0 = True
+  | otherwise = False
+  where seeds = (getPlayerHoles player b) !! pos
+        opositeSeeds = (getOtherPlayerHoles player b) !! pos
+
+-- Make a move and capture if it is possible
 makeMove :: Hole -> Board -> Board
 makeMove hole b
-  | canCapture hole b == True = capture hole boardAfterMove
+  | (fst lastHole) == (fst hole) &&
+    canCapture lastHole boardAfterMove == True = capture lastHole boardAfterMove
   | otherwise = boardAfterMove
-  where boardAfterMove = move hole b
+  where lastHole = getLastHole hole b
+        boardAfterMove = move hole b
 
---canMoveAgain :: Hole -> Board -> Board
---canMoveAgain (player, pos) b = holes !!
---  where holes = board2holes player b
---        seeds = (getPlayerHoles player b) !! pos
+-- Verify if the user can move again
+-- (based on last hole that received a seed after a move)
+canMoveAgain :: Hole -> Board -> Bool
+canMoveAgain hole b
+  | isMancala hole b = True
+  | otherwise = False

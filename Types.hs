@@ -9,7 +9,3 @@ type Board = ([Seed], [Seed])
 type Hole = (Player, Position)
 type Position = Int
 type Seed = Int
-
-isMancala :: Hole -> Board -> Bool
-isMancala (_, p) b = length holes == p
-  where holes = fst b

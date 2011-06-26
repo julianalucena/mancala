@@ -4,14 +4,13 @@
 module Board(initBoard,
              getPlayerHoles,
              getOtherPlayerHoles,
+             getOtherPlayer,
              removeMancalaHole,
-             hasMove,
              board2holes,
              holes2board,
              updateHole,
              sow,
              move,
-             canCapture,
              capture,
              getLastHole) where
 
@@ -39,11 +38,6 @@ getOtherPlayer player = if player == A
 -- Return just normal holes
 removeMancalaHole :: [Seed] -> [Seed]
 removeMancalaHole seeds = reverse (tail (reverse seeds))
-
--- Verify if specified player has moves to do
-hasMove :: Player -> Board -> Bool
-hasMove p b = any (/=0) holes
-  where holes = removeMancalaHole (getPlayerHoles p b)
 
 board2holes :: Player -> Board -> [Seed]
 board2holes player b = if player == A
@@ -77,13 +71,6 @@ move (player, pos) b = holes2board player sownBoard
         allHoles = board2holes player b
         seeds = (getPlayerHoles player b) !! pos
 
--- Verifies if a capture can be done
-canCapture :: Hole -> Board -> Bool
-canCapture (player, pos) b
-  | seeds == 1 && opositeSeeds /= 0 = True
-  | otherwise = False
-  where seeds = (getPlayerHoles player b) !! pos
-        opositeSeeds = (getOtherPlayerHoles player b) !! pos
 
 -- Captures other player's seeds
 capture :: Hole -> Board -> Board
