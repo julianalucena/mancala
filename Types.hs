@@ -3,7 +3,7 @@
 
 module Types where
 
-data Player = A | B deriving (Eq, Show, Read)
+data Player = A | B | Nobody deriving (Eq, Show, Read)
 
 type Board = ([Seed], [Seed])
 type Hole = (Player, Position)

@@ -10,9 +10,9 @@ sampleBoard = ([3, 5, 0, 1, 3], [7, 0, 1, 1, 2])
 
 isMancalaTest = TestList [
   TestCase $ assertEqual "The last hole is mancala"
-    (isMancala (A, 2) ([2, 5, 0], [7, 9, 1])) True,
+    True (isMancala (A, 2) ([2, 5, 0], [7, 9, 1])),
   TestCase $ assertEqual "The other holes are not mancala"
-    (isMancala (A, 1) ([2, 5, 0], [7, 9, 1])) False
+    False (isMancala (A, 1) ([2, 5, 0], [7, 9, 1]))
   ]
 
 hasMoveTest = TestList [
@@ -35,21 +35,30 @@ canCaptureTest = TestList [
 
 makeMoveTest = TestList [
   TestCase $ assertEqual "Player A makes a simple move"
-    (makeMove (A, 0) ([1, 5, 0], [7, 9, 1])) ([0, 6, 0], [7, 9, 1]),
+    ([0, 6, 0], [7, 9, 1]) (makeMove (A, 0) ([1, 5, 0], [7, 9, 1])),
   TestCase $ assertEqual "Player A makes a move and capture"
-    (makeMove (A, 0) ([2, 5, 0, 0], [7, 9, 3, 3])) ([0, 6, 1, 3], [7, 9, 0, 3]),
+    ([0, 6, 1, 3], [7, 9, 0, 3]) (makeMove (A, 0) ([2, 5, 0, 0], [7, 9, 3, 3])),
   TestCase $ assertEqual "Player B makes a simple move"
-    (makeMove (B, 1) ([1, 5, 0], [7, 2, 1])) ([2, 5, 0], [7, 0, 2]),
+    ([2, 5, 0], [7, 0, 2]) (makeMove (B, 1) ([1, 5, 0], [7, 2, 1])),
   TestCase $ assertEqual "Player B makes a move and capture"
-    (makeMove (B, 2) ([2, 5, 0, 0], [0, 9, 5, 3])) ([0, 6, 1, 0], [1, 9, 0, 7])
+    ([0, 6, 1, 0], [1, 9, 0, 7]) (makeMove (B, 2) ([2, 5, 0, 0], [0, 9, 5, 3]))
   ]
 
 canMoveAgainTest = TestList [
   TestCase $ assertEqual "Player A can move again if the last hole is a mancala"
-    (canMoveAgain (A, 2) ([2, 5, 0], [7, 9, 1])) True,
+    True (canMoveAgain (A, 2) ([2, 5, 0], [7, 9, 1])),
   TestCase $ assertEqual "Player B can not move again if the last hole is not a mancala"
-    (canMoveAgain (B, 1) ([2, 5, 0], [7, 9, 1])) False
+    False (canMoveAgain (B, 1) ([2, 5, 0], [7, 9, 1]))
+  ]
+
+getWinnerTest = TestList [
+  TestCase $ assertEqual "Player A is the winner"
+    A (getWinner ([2, 2, 7], [0, 2, 8])),
+  TestCase $ assertEqual "Player B is the winner"
+    B (getWinner ([0, 0, 4], [7, 2, 5])),
+  TestCase $ assertEqual "Nobody won the game."
+    Nobody (getWinner ([0, 1, 4], [1, 0, 4]))
   ]
 
 main = runTestTT $ TestList [isMancalaTest, hasMoveTest, canCaptureTest,
-  makeMoveTest, canMoveAgainTest]
+  makeMoveTest, canMoveAgainTest, getWinnerTest]

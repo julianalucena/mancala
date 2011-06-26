@@ -5,7 +5,8 @@ module Rules(isMancala,
              hasMove,
              canCapture,
              makeMove,
-             canMoveAgain) where
+             canMoveAgain,
+             getWinner) where
 
 import Types
 import Board
@@ -44,3 +45,12 @@ canMoveAgain :: Hole -> Board -> Bool
 canMoveAgain hole b
   | isMancala hole b = True
   | otherwise = False
+
+-- Retrieves the winner
+getWinner :: Board -> Player
+getWinner board
+  | playerASeeds > playerBSeeds = A
+  | playerASeeds < playerBSeeds = B
+  | otherwise = Nobody
+  where playerASeeds = foldr (+) 0 (fst board)
+        playerBSeeds = foldr (+) 0 (snd board)

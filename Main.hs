@@ -3,24 +3,30 @@
 
 import Types
 import Board
+import Rules
 
-loop :: Board -> IO()
-loop b =  do
-  putStrLn (show b)
-  holeToMoveStr <- getLine
-  let holeToMove = read holeToMoveStr :: Hole
-  let newB = move holeToMove b
-  let re = canCapture holeToMove newB
-  let seeds = (getPlayerHoles (fst holeToMove) newB) !! snd holeToMove
-  let opositeSeeds = (getOtherPlayerHoles (fst holeToMove) newB) !! snd holeToMove
-  putStrLn (show newB)
-  putStrLn (show seeds)
-  putStrLn (show opositeSeeds)
-  putStrLn (show re)
-  if re
-    then
-      loop (capture holeToMove newB)
-    else
-      loop newB
+loop :: Player -> Board -> IO()
+loop player board = do
+  putStrLn ("Player " ++ show player ++ " turn.")
+  putStrLn (show board)
+  position <- getLine
+  let holeToMove = (player, read position :: Position)
 
-main = loop (initBoard 4 2)
+  if isMancala holeToMove board
+    then do putStrLn ("You can not move with your Mancala hole, try again.")
+            loop player board
+            return()
+    else do
+      let lastHole = getLastHole holeToMove board
+      let boardAfterMove = makeMove holeToMove board
+
+      if hasMove player boardAfterMove
+        then
+          if canMoveAgain lastHole boardAfterMove
+            then loop player boardAfterMove
+            else loop (getOtherPlayer player) boardAfterMove
+        else putStrLn (show boardAfterMove ++ "\n" ++
+              show (getWinner boardAfterMove) ++ " won!");
+
+main = do
+  loop A (initBoard 4 3)
