@@ -8,6 +8,7 @@ import Rules
 loop :: Player -> Board -> IO()
 loop player board = do
   putStrLn ("Player " ++ show player ++ " turn.")
+  putStrLn ("Choose from 0 to " ++ show (length (getPlayerHoles player board) - 2))
   putStrLn (show board)
   position <- getLine
   let holeToMove = (player, read position :: Position)
@@ -16,6 +17,10 @@ loop player board = do
     then do putStrLn ("You can not move with your Mancala hole, try again.")
             loop player board
             return()
+    else if not $ isPossibleMove holeToMove board
+      then do putStrLn ("Irregular move, try again.")
+              loop player board
+              return()
     else do
       let lastHole = getLastHole holeToMove board
       let boardAfterMove = makeMove holeToMove board
