@@ -4,12 +4,22 @@
 import Types
 import Board
 import Rules
+import Data.List(elemIndex)
+
+
+showBoard :: Board -> String
+showBoard (s1, s2) = "  " ++ playerABoard ++ " \n " ++ show (last(s1)) ++ "----------------------------" ++ show (last(s2)) ++ " \n" ++ "  " ++ playerBBoard
+     where playerABoard = returnBoard (take (length s1 -1) s1)
+           playerBBoard = returnBoard (take (length s1 -1) s2)
+
+returnBoard :: [Seed] -> String
+returnBoard as = concat [ " " ++ show x ++  ":" ++ (show (as !! x)) ++ " | " | x <- [0..(length as - 1)]]
 
 loop :: Player -> Board -> IO()
 loop player board = do
   putStrLn ("Player " ++ show player ++ " turn.")
   putStrLn ("Choose from 0 to " ++ show (length (getPlayerHoles player board) - 2))
-  putStrLn (show board)
+  putStrLn (showBoard board)
   position <- getLine
   let holeToMove = (player, read position :: Position)
 
