@@ -8,12 +8,12 @@ import Data.List(elemIndex)
 
 
 showBoard :: Board -> String
-showBoard (s1, s2) = "  " ++ playerABoard ++ " \n " ++ show (last(s2)) ++ "----------------------------" ++ show (last(s1)) ++ " \n" ++ "  " ++ playerBBoard
+showBoard (s1, s2) = "  " ++ playerABoard ++ " \n " ++ show (last(s2)) ++  replicate ((length s1 - 1) * 6) '-'  ++ show (last(s1)) ++ " \n" ++ "  " ++ playerBBoard
      where playerABoard = returnBoard (take (length s1 -1) s1)
            playerBBoard = returnBoard (take (length s1 -1) s2)
 
 returnBoard :: [Seed] -> String
-returnBoard as = concat [ " " ++ show x ++  ":" ++ (show (as !! x)) ++ " | " | x <- [0..(length as - 1)]]
+returnBoard as = concat [ "|" ++ show x ++  ":" ++ (show (as !! x)) ++ "| " | x <- [0..(length as - 1)]]
 
 loop :: Player -> Board -> IO()
 loop player board = do
@@ -44,4 +44,4 @@ loop player board = do
               show (getWinner boardAfterMove) ++ " won!");
 
 main = do
-  loop A (initBoard 4 3)
+  loop A (initBoard 7 4)
