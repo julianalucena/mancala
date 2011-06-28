@@ -8,7 +8,7 @@ import Data.List(elemIndex)
 
 
 showBoard :: Board -> String
-showBoard (s1, s2) = "  " ++ playerABoard ++ " \n " ++ show (last(s1)) ++ "----------------------------" ++ show (last(s2)) ++ " \n" ++ "  " ++ playerBBoard
+showBoard (s1, s2) = "  " ++ playerABoard ++ " \n " ++ show (last(s2)) ++ "----------------------------" ++ show (last(s1)) ++ " \n" ++ "  " ++ playerBBoard
      where playerABoard = returnBoard (take (length s1 -1) s1)
            playerBBoard = returnBoard (take (length s1 -1) s2)
 
