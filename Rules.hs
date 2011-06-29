@@ -29,7 +29,9 @@ canCapture (player, pos) b
   | seeds == 1 && opositeSeeds /= 0 = True
   | otherwise = False
   where seeds = (getPlayerHoles player b) !! pos
-        opositeSeeds = (getOtherPlayerHoles player b) !! pos
+        opositeSeeds = otherPlayerHoles !! opositePos
+        opositePos = length otherPlayerHoles - pos - 2
+        otherPlayerHoles = (getOtherPlayerHoles player b)
 
 -- Make a move and capture if it is possible
 makeMove :: Hole -> Board -> Board

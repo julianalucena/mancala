@@ -52,9 +52,9 @@ moveTest = TestList [
 
 captureTest = TestList [
   TestCase $ assertEqual "Player A captures from hole 3"
-    ([3, 5, 0, 1, 4], [7, 0, 1, 0, 2]) (capture (A, 3) sampleBoard),
+    ([3, 5, 0, 1, 10], [0, 0, 1, 1, 2]) (capture (A, 3) sampleBoard),
   TestCase $ assertEqual "Player B captures from hole 0"
-    ([0, 5, 0, 1, 3], [7, 0, 1, 1, 5]) (capture (B, 0) sampleBoard)
+    ([3, 0, 0, 1, 3], [7, 0, 1, 1, 7]) (capture (B, 2) sampleBoard)
   ]
 
 getLastHoleTest = TestList [

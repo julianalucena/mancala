@@ -78,8 +78,10 @@ capture (player, pos) b = holes2board (getOtherPlayer player) holesCapturedSeeds
   where holesCapturedSeeds = updateHole mancalaPos newMancalaSeeds holesRemovedSeeds
         newMancalaSeeds = (holesRemovedSeeds !! mancalaPos) + opositeSeeds
         mancalaPos = length holesRemovedSeeds - 1
-        holesRemovedSeeds = updateHole pos 0 (board2holes (getOtherPlayer player) b)
-        opositeSeeds = (getOtherPlayerHoles player b) !! pos
+        holesRemovedSeeds = updateHole opositePos 0 (board2holes (getOtherPlayer player) b)
+        opositeSeeds = otherPlayerHoles !! opositePos
+        opositePos = length otherPlayerHoles - pos - 2
+        otherPlayerHoles = (getOtherPlayerHoles player b)
 
 getLastHole :: Hole -> Board -> Hole
 getLastHole (player, pos)  b = (getPlayer, newPosition `mod` (boardSize `div` 2))

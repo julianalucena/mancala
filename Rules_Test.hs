@@ -6,7 +6,7 @@ import Board
 import Rules
 import Test.HUnit
 
-sampleBoard = ([3, 5, 0, 1, 3], [7, 0, 1, 1, 2])
+sampleBoard = ([3, 5, 0, 1, 3], [7, 2, 1, 1, 2])
 
 isMancalaTest = TestList [
   TestCase $ assertEqual "The last hole is mancala"
@@ -37,11 +37,11 @@ makeMoveTest = TestList [
   TestCase $ assertEqual "Player A makes a simple move"
     ([0, 6, 0], [7, 9, 1]) (makeMove (A, 0) ([1, 5, 0], [7, 9, 1])),
   TestCase $ assertEqual "Player A makes a move and capture"
-    ([0, 6, 1, 3], [7, 9, 0, 3]) (makeMove (A, 0) ([2, 5, 0, 0], [7, 9, 3, 3])),
+    ([0, 6, 1, 7], [0, 9, 3, 3]) (makeMove (A, 0) ([2, 5, 0, 0], [7, 9, 3, 3])),
   TestCase $ assertEqual "Player B makes a simple move"
     ([2, 5, 0], [7, 0, 2]) (makeMove (B, 1) ([1, 5, 0], [7, 2, 1])),
   TestCase $ assertEqual "Player B makes a move and capture"
-    ([0, 6, 1, 0], [1, 9, 0, 7]) (makeMove (B, 2) ([2, 5, 0, 0], [0, 9, 5, 3]))
+    ([3, 6, 0, 0], [1, 9, 0, 5]) (makeMove (B, 2) ([2, 5, 0, 0], [0, 9, 5, 3]))
   ]
 
 canMoveAgainTest = TestList [
