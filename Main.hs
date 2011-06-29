@@ -8,12 +8,15 @@ import Data.List(elemIndex)
 
 
 showBoard :: Board -> String
-showBoard (s1, s2) = "  " ++ playerABoard ++ " \n " ++ show (last(s2)) ++  replicate ((length s1 - 1) * 6) '-'  ++ show (last(s1)) ++ " \n" ++ "  " ++ playerBBoard
-     where playerABoard = returnBoard (take (length s1 -1) s1)
-           playerBBoard = returnBoard (take (length s1 -1) s2)
+showBoard (s1, s2) = "  " ++ playerBBoard ++ " \n " ++ show (last(s2)) ++  replicate ((length s1 - 1) * 6) '-'  ++ show (last(s1)) ++ " \n" ++ "  " ++ playerABoard
+     where playerABoard = returnBoardA (take (length s1 -1) s1)
+           playerBBoard = returnBoardB (take (length s1 -1) s2)
 
-returnBoard :: [Seed] -> String
-returnBoard as = concat [ "|" ++ show x ++  ":" ++ (show (as !! x)) ++ "| " | x <- [0..(length as - 1)]]
+returnBoardA :: [Seed] -> String
+returnBoardA as = concat [ "|" ++ show x ++  ":" ++ (show (as !! x)) ++ "| " | x <- [0..(length as - 1)]]
+
+returnBoardB :: [Seed] -> String
+returnBoardB as = concat [ "|" ++ show x ++  ":" ++ (show (as !! x)) ++ "| " | x <- (reverse [0..(length as - 1)])]
 
 loop :: Player -> Board -> IO()
 loop player board = do
