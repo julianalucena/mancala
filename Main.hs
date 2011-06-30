@@ -48,4 +48,4 @@ loop player board = do
               show (getWinner boardAfterMove) ++ " won!");
 
 main = do
-  loop A (initBoard 7 4)
+  loop A (initBoard 6 4)

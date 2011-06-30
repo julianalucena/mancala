@@ -26,6 +26,7 @@ hasMove p b = any (/=0) holes
 -- Verifies if a capture can be done
 canCapture :: Hole -> Board -> Bool
 canCapture (player, pos) b
+  | isMancala (player, pos) b = False
   | seeds == 1 && opositeSeeds /= 0 = True
   | otherwise = False
   where seeds = (getPlayerHoles player b) !! pos
@@ -61,6 +62,7 @@ getWinner board
 -- Verify if is a possible movement
 isPossibleMove :: Hole -> Board -> Bool
 isPossibleMove (player, pos) b
+  | pos < 0 = False
   | pos > length playerHoles - 2 = False
   | playerHoles !! pos == 0 = False
   | otherwise = True

@@ -10,7 +10,7 @@ sampleHoles = [3, 5, 0, 1, 3, 7, 0, 1, 1, 2]
 
 initBoardTest = TestList [
   TestCase $ assertEqual "Inits a board with 5 holes (including mancala hole) with 4 seeds"
-    (initBoard 5 4) ([4, 4, 4, 4, 4], [4, 4, 4, 4, 4])
+    (initBoard 5 4) ([4, 4, 4, 4, 4, 0], [4, 4, 4, 4, 4, 0])
   ]
 
 getPlayerHolesTest = TestList [

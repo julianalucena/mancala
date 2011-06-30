@@ -19,8 +19,8 @@ import Data.List(splitAt)
 
 -- Inits Board with X holes (including mancala hole) with Y seeds
 initBoard :: Int -> Seed -> Board
-initBoard nHoles seeds  = (holes++[0], holes++[0])
-  where holes = replicate (nHoles-1) seeds
+initBoard nHoles seeds  = (holes, holes)
+  where holes = replicate nHoles seeds ++ [0]
 
 -- Returns player's holes
 getPlayerHoles :: Player -> Board -> [Seed]

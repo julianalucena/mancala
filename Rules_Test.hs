@@ -27,6 +27,8 @@ canCaptureTest = TestList [
     True (canCapture (A, 3) sampleBoard),
   TestCase $ assertEqual "Player A can NOT capture from hole 2"
     False (canCapture (A, 2) sampleBoard),
+  TestCase $ assertEqual "Player A can NOT capture from hole 1"
+    False (canCapture (A, 6) ([0,0,6,6,6,5,1],[0,5,5,5,5,4,0])),
   TestCase $ assertEqual "Player B can capture from hole 3"
     True (canCapture (B, 3) sampleBoard),
   TestCase $ assertEqual "Player B can NOT capture from hole 0"
@@ -67,6 +69,8 @@ isPossibleMoveTest = TestList [
     False (isPossibleMove (A, 0) ([0, 2, 7], [0, 2, 8])),
   TestCase $ assertEqual "Player A try an irregular move (2)"
     False (isPossibleMove (A, 3) ([0, 2, 7], [0, 2, 8])),
+  TestCase $ assertEqual "Player A try an irregular move (3)"
+    False (isPossibleMove (A, -1) ([0, 2, 7], [0, 2, 8])),
   TestCase $ assertEqual "Player A try a regular move"
     True (isPossibleMove (A, 1) ([0, 2, 7], [0, 2, 8])),
   TestCase $ assertEqual "Player B try an irregular move"
