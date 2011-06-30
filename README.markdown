@@ -13,6 +13,6 @@ If after a move the last seed is deposited on a normal and empty hole, and the o
 ### Winner
 The winner is the player that has more seeds on mancala hole + normal holes.
 ## Contributors
-Juliana Lucena ([[julianalucena|https://github.com/julianalucena]])
+Juliana Lucena ([julianalucena](https://github.com/julianalucena))
 
-Tiago Lima ([[fltiago|https://github.com/fltiago]])
+Tiago Lima ([fltiago](https://github.com/fltiago))
