@@ -8,15 +8,16 @@ import Data.List(elemIndex)
 
 
 showBoard :: Board -> String
-showBoard (s1, s2) = "  " ++ playerBBoard ++ " \n " ++ show (last(s2)) ++  replicate ((length s1 - 1) * 6) '-'  ++ show (last(s1)) ++ " \n" ++ "  " ++ playerABoard
+showBoard (s1, s2) = "   " ++ playerBBoard ++ " \n " ++ show (last(s2)) ++ " " ++
+  replicate ((length s1 - 1) * 8) '-'  ++ " " ++ show (last(s1)) ++ " \n" ++ "   " ++ playerABoard
      where playerABoard = returnBoardA (take (length s1 -1) s1)
            playerBBoard = returnBoardB (take (length s1 -1) s2)
 
 returnBoardA :: [Seed] -> String
-returnBoardA as = concat [ "|" ++ show x ++  ":" ++ (show (as !! x)) ++ "| " | x <- [0..(length as - 1)]]
+returnBoardA as = concat [ "|" ++ show x ++  ":(" ++ (show (as !! x)) ++ ")| " | x <- [0..(length as - 1)]]
 
 returnBoardB :: [Seed] -> String
-returnBoardB as = concat [ "|" ++ show x ++  ":" ++ (show (as !! x)) ++ "| " | x <- (reverse [0..(length as - 1)])]
+returnBoardB as = concat [ "|" ++ show x ++  ":(" ++ (show (as !! x)) ++ ")| " | x <- (reverse [0..(length as - 1)])]
 
 loop :: Player -> Board -> IO()
 loop player board = do
@@ -43,7 +44,7 @@ loop player board = do
           if canMoveAgain lastHole boardAfterMove
             then loop player boardAfterMove
             else loop (getOtherPlayer player) boardAfterMove
-        else putStrLn (show boardAfterMove ++ "\n" ++
+        else putStrLn (showBoard boardAfterMove ++ "\n" ++
               show (getWinner boardAfterMove) ++ " won!");
 
 main = do
